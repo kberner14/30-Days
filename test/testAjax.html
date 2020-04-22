@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Favorite Workouts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Workout Search</h1>
+
+        <P> USE ANY OF THESE PUBLIC ENDPOINTS IN THE SEARCH: daysofweek, equipment, exercise, exerciseinfo, exercisecategory, exercisecomment, exerciseimage, ingredient, ingredienttoweightunit, language, license, muscle, weightunit, setting-repetitionunit,
+            setting-weightunit
+        </P>
+        <form id="workout-form">
+            <label for="workout-input">Search for a workout</label>
+            <input type="text" id="workout-input" /><br />
+            <input id="find-workout" type="submit" value="Workout Search" />
+        </form>
+        <pre id="workout-view"></pre>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            $("#find-workout").on("click", function(event) {
+                event.preventDefault();
+                var workout = $("#workout-input").val();
+                var queryURL =
+
+                    //1. this return json objects 
+                    "https://wger.de/api/v2/" + workout + "/?format=json";
+
+                //2. this returns an html page. Not sure how we could use this but it looks interesting
+                // "https://wger.de/api/v2/" + workout + ".api/";
+
+                //3. this returns an object using its id at the end. (SEE CONSOLE LOG)
+                // "https://wger.de/api/v2/muscle/2"
+                // "https://wger.de/api/v2/exercisecategory/14"
+
+
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function(response) {
+                    console.log(response);
+                    $("#workout-view").text(JSON.stringify(response, null, 2));
+                });
+            });
+        </script>
+    </div>
+</body>
+
+</html>
