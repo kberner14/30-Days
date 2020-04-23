@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Challenge = sequelize.define("Challenges", {
+  var Challenge = sequelize.define("Challenge", {
     // The email cannot be null, and must be a proper email before creation
     name: {
       type: DataTypes.STRING,
@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    Increment: {
+    increment: {
       type: DataTypes.INTEGER,
       allowNull: false
     }

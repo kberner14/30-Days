@@ -21,8 +21,7 @@ module.exports = function(app) {
   app.post("/api/signup", function(req, res) {
     db.User.create({
       email: req.body.email,
-      password: req.body.password,
-      chosenChallenge: req.user.chosenChallenge
+      password: req.body.password
     })
       .then(function() {
         res.redirect(307, "/api/login");
@@ -31,12 +30,14 @@ module.exports = function(app) {
         res.status(401).json(err);
       });
   });
+  // Post method verified by postman
 
   // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
   });
+  // Logout verified by postman
 
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", function(req, res) {
@@ -53,18 +54,19 @@ module.exports = function(app) {
       });
     }
   });
+  // api/user_data tested in postman returned "{}", but I think this was fine as we don't technically have a local session
 
   app.post("/api/challenges", function(req, res) {
     // create takes an argument of an object describing the item we want to insert
     // into our table.
     db.Challenge.create({
       name: req.body.name,
-      id: req.challenge.id,
       task: req.challenge.task,
       increment: req.challenge.increment
-    }).then(function(dbTodo) {
+    }).then(function(challenge) {
       // We have access to the new todo as an argument inside of the callback function
-      res.json(dbTodo);
+      console.log(res);
+      res.json(challenge);
     });
   });
 
@@ -73,8 +75,7 @@ module.exports = function(app) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
-      // Otherwise send back the user's email and id
-      // Sending back a password, even a hashed password, isn't a good idea
+      // Otherwise send back the challenge's name, id, task, and increment
       res.json({
         name: req.challenge.name,
         id: req.challenge.id,
