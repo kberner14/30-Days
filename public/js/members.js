@@ -52,6 +52,12 @@ $(document).ready(function() {
   $.get("/api/user_data").then(function(data) {
     $(".member-name").text(data.email);
   });
+
+  $.ajax({
+    url: "/api/user_data/1/challenge",
+    method: "PATCH",
+    data: { challenge: "test" }
+  });
 });
 
 function renderTable(days) {

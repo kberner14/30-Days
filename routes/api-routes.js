@@ -43,14 +43,14 @@ module.exports = function(app) {
   app.get("/api/user_data", function(req, res) {
     if (!req.user) {
       // The user is not logged in, send back an empty object
-      res.json({});
+      res.json({ result: "no result" });
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
         email: req.user.email,
         id: req.user.id,
-        chosenChallenge: req.user.chosenChallenge
+        challenge: req.user.challenge
       });
     }
   });
@@ -70,27 +70,22 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/challenges/:id", function(req, res) {
-    if (!req.challenge) {
-      // The user is not logged in, send back an empty object
-      res.json({});
-    } else {
-      // Otherwise send back the challenge's name, id, task, and increment
-      res.json({
-        name: req.challenge.name,
-        id: req.challenge.id,
-        task: req.challenge.task,
-        increment: req.challenge.increment
-      });
-    }
-  });
-
-  app.put("/api/user_data/:id", (req, res) => {
-    db.User.update(req.body, {
-      where: {
-        id: req.params.id
+  app.patch("/api/user_data/:id/challenge", (req, res) => {
+    // if (!req.user) {
+    //   // The user is not logged in, send back an empty object
+    //   res.json({ result: "no result" });
+    //   return;
+    // }
+    db.User.update(
+      {
+        challenge: req.body.challenge
+      },
+      {
+        where: {
+          id: req.params.id
+        }
       }
-    }).then(dbUser => {
+    ).then(dbUser => {
       res.json(dbUser);
     });
   });
