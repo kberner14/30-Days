@@ -10,7 +10,8 @@ module.exports = function(app) {
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       email: req.user.email,
-      id: req.user.id
+      id: req.user.id,
+      chosenChallenge: req.user.chosenChallenge
     });
   });
 
@@ -29,12 +30,14 @@ module.exports = function(app) {
         res.status(401).json(err);
       });
   });
+  // Post method verified by postman
 
   // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
   });
+  // Logout verified by postman
 
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", function(req, res) {
@@ -50,5 +53,45 @@ module.exports = function(app) {
         chosenChallenge: req.user.chosenChallenge
       });
     }
+  });
+  // api/user_data tested in postman returned "{}", but I think this was fine as we don't technically have a local session
+
+  app.post("/api/challenges", function(req, res) {
+    // create takes an argument of an object describing the item we want to insert
+    // into our table.
+    db.Challenge.create({
+      name: req.body.name,
+      task: req.challenge.task,
+      increment: req.challenge.increment
+    }).then(function(challenge) {
+      // We have access to the new todo as an argument inside of the callback function
+      console.log(res);
+      res.json(challenge);
+    });
+  });
+
+  app.get("/api/challenges/:id", function(req, res) {
+    if (!req.challenge) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      // Otherwise send back the challenge's name, id, task, and increment
+      res.json({
+        name: req.challenge.name,
+        id: req.challenge.id,
+        task: req.challenge.task,
+        increment: req.challenge.increment
+      });
+    }
+  });
+
+  app.put("/api/user_data/:id", (req, res) => {
+    db.User.update(req.body, {
+      where: {
+        id: req.params.id
+      }
+    }).then(dbUser => {
+      res.json(dbUser);
+    });
   });
 };
