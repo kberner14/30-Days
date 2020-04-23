@@ -21,7 +21,8 @@ module.exports = function(app) {
   app.post("/api/signup", function(req, res) {
     db.User.create({
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      chosenChallenge: req.user.chosenChallenge
     })
       .then(function() {
         res.redirect(307, "/api/login");
@@ -49,6 +50,36 @@ module.exports = function(app) {
         email: req.user.email,
         id: req.user.id,
         chosenChallenge: req.user.chosenChallenge
+      });
+    }
+  });
+
+  app.post("/api/challenges", function(req, res) {
+    // create takes an argument of an object describing the item we want to insert
+    // into our table.
+    db.Challenge.create({
+      name: req.body.name,
+      id: req.challenge.id,
+      task: req.challenge.task,
+      increment: req.challenge.increment
+    }).then(function(dbTodo) {
+      // We have access to the new todo as an argument inside of the callback function
+      res.json(dbTodo);
+    });
+  });
+
+  app.get("/api/challenges/:id", function(req, res) {
+    if (!req.challenge) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      // Otherwise send back the user's email and id
+      // Sending back a password, even a hashed password, isn't a good idea
+      res.json({
+        name: req.challenge.name,
+        id: req.challenge.id,
+        task: req.challenge.task,
+        increment: req.challenge.increment
       });
     }
   });
