@@ -52,16 +52,12 @@ module.exports = function(app) {
       //   id: req.user.id,
       //   challenge: req.user.challenge
       // });
-      db.User.findAll(
-        {
-          attributes: ["email", "id", "challenge"]
-        },
-        {
-          where: {
-            email: req.user.email
-          }
+      db.User.findAll({
+        attributes: ["email", "id", "challenge"],
+        where: {
+          email: req.user.email
         }
-      ).then(dbUser => {
+      }).then(dbUser => {
         res.send(dbUser);
       });
     }

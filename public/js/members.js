@@ -46,7 +46,7 @@ $(document).ready(function() {
     // renderTable(challenge.challenge[1].isComplete);
     console.log(challenge);
     $.ajax({
-      url: "/api/user_data/" + req.user.id + "/challenge",
+      url: "/api/user_data/" + id + "/challenge",
       method: "PATCH",
       data: challenge
     })
@@ -55,14 +55,18 @@ $(document).ready(function() {
       })
       .then(() => {
         $.get("/api/user_data").then(function(data) {
+          console.log("Data:");
           console.log(data);
         });
       });
   });
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
-
+  var id;
+  // var challengeName = data[0].challenge[0].challengeName;
+  // var isComplete = data[0].challenge[1].isComplete;
   $.get("/api/user_data").then(function(data) {
+    id = data[0].id;
     $(".member-name").text(data[0].email);
   });
 });
