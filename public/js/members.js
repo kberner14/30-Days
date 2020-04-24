@@ -1,6 +1,6 @@
-const workoutForm = $("#workout-form");
+// const workoutForm = $("#workout-form");
 const dropdownSelect = $("#workout");
-const workoutTable = $("#table");
+// const workoutTable = $("#table");
 $(document).ready(function() {
   $(workoutForm).on("submit", function handleFormSubmit(event) {
     event.preventDefault();
