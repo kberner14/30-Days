@@ -59,30 +59,30 @@ $(document).ready(function() {
   });
 });
 
-function renderTable(days) {
-  $.each(days, function(i) {
-    let li = $("<li/>")
-      .addClass("day-item w3-panel w3-card")
-      .attr("id", i)
-      .appendTo(workoutTable);
-    let divRow = $("<div/>")
-      .addClass("w3-row")
-      .appendTo(li);
-    let divCol1 = $("<div/>")
-      .addClass("w3-col s3 w3-green w3-center")
-      .appendTo(divRow);
-    $("<p>Text</p>").appendTo(divCol1);
-    let divCol2 = $("<div/>")
-      .addClass("w3-col s3 w3-green w3-center")
-      .appendTo(divRow);
-    $("<p>Text</p>").appendTo(divCol2);
-    let divCol3 = $("<div/>")
-      .addClass("w3-col s3 w3-green w3-center")
-      .appendTo(divRow);
-    $("<p>Text</p>").appendTo(divCol3);
-    let divCol4 = $("<div/>")
-      .addClass("w3-col s3 w3-green w3-center")
-      .appendTo(divRow);
-    $("<p>Text</p>").appendTo(divCol4);
-  });
-}
+// function renderTable(days) {
+//   $.each(days, function(i) {
+//     let li = $("<li/>")
+//       .addClass("day-item w3-panel w3-card")
+//       .attr("id", i)
+//       .appendTo(workoutTable);
+//     let divRow = $("<div/>")
+//       .addClass("w3-row")
+//       .appendTo(li);
+//     let divCol1 = $("<div/>")
+//       .addClass("w3-col s3 w3-green w3-center")
+//       .appendTo(divRow);
+//     $("<p>Text</p>").appendTo(divCol1);
+//     let divCol2 = $("<div/>")
+//       .addClass("w3-col s3 w3-green w3-center")
+//       .appendTo(divRow);
+//     $("<p>Text</p>").appendTo(divCol2);
+//     let divCol3 = $("<div/>")
+//       .addClass("w3-col s3 w3-green w3-center")
+//       .appendTo(divRow);
+//     $("<p>Text</p>").appendTo(divCol3);
+//     let divCol4 = $("<div/>")
+//       .addClass("w3-col s3 w3-green w3-center")
+//       .appendTo(divRow);
+//     $("<p>Text</p>").appendTo(divCol4);
+//   });
+// }
