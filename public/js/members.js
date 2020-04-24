@@ -1,4 +1,4 @@
-// const workoutForm = $("#workout-form");
+const workoutForm = $("#workout-form");
 const dropdownSelect = $("#workout");
 // const workoutTable = $("#table");
 $(document).ready(function() {
@@ -46,10 +46,18 @@ $(document).ready(function() {
     // renderTable(challenge.challenge[1].isComplete);
     console.log(challenge);
     $.ajax({
-      url: "/api/user_data/2/challenge",
+      url: "/api/user_data/1/challenge",
       method: "PATCH",
       data: challenge
-    });
+    })
+      .then(resp => {
+        console.log(resp);
+      })
+      .then(() => {
+        $.get("/api/user_data").then(function(data) {
+          console.log(data);
+        });
+      });
   });
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page

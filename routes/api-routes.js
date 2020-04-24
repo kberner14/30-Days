@@ -47,35 +47,32 @@ module.exports = function(app) {
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        email: req.user.email,
-        id: req.user.id,
-        challenge: req.user.challenge
+      // res.send({
+      //   email: req.user.email,
+      //   id: req.user.id,
+      //   challenge: req.user.challenge
+      // });
+      db.User.findAll(
+        {
+          attributes: ["email", "id", "challenge"]
+        },
+        {
+          where: {
+            email: req.user.email
+          }
+        }
+      ).then(dbUser => {
+        res.send(dbUser);
       });
     }
   });
-  // api/user_data tested in postman returned "{}", but I think this was fine as we don't technically have a local session
-
-  app.post("/api/challenges", function(req, res) {
-    // create takes an argument of an object describing the item we want to insert
-    // into our table.
-    db.Challenge.create({
-      name: req.body.name,
-      task: req.challenge.task,
-      increment: req.challenge.increment
-    }).then(function(challenge) {
-      // We have access to the new todo as an argument inside of the callback function
-      console.log(res);
-      res.json(challenge);
-    });
-  });
 
   app.patch("/api/user_data/:id/challenge", (req, res) => {
-    // if (!req.user) {
-    //   // The user is not logged in, send back an empty object
-    //   res.json({ result: "no result" });
-    //   return;
-    // }
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({ result: "no result" });
+      return;
+    }
     db.User.update(
       {
         challenge: req.body.challenge
@@ -85,8 +82,8 @@ module.exports = function(app) {
           id: req.params.id
         }
       }
-    ).then(dbUser => {
-      res.json(dbUser);
+    ).then(() => {
+      res.json({ result: "successful patch" });
     });
   });
 
@@ -97,7 +94,19 @@ module.exports = function(app) {
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
-      res.send(req.user.challenge);
+      // res.send({ challenge: req.user.challenge });
+      db.User.findAll(
+        {
+          attributes: ["challenge"]
+        },
+        {
+          where: {
+            id: req.params.id
+          }
+        }
+      ).then(challenge => {
+        res.send(challenge);
+      });
     }
   });
 };
