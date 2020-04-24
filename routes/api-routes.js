@@ -90,16 +90,14 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/user_data/:id/challenge", function(req, res) {
+  app.get("/api/user_data/:id", function(req, res) {
     if (!req.user) {
       // The user is not logged in, send back an empty object
-      res.json({ result: "no result" });
+      res.send({ result: "no result" });
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        challenge: req.user.challenge
-      });
+      res.send(req.user.challenge);
     }
   });
 };
