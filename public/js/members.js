@@ -46,7 +46,7 @@ $(document).ready(function() {
     // renderTable(challenge.challenge[1].isComplete);
     console.log(challenge);
     $.ajax({
-      url: "/api/user_data/1/challenge",
+      url: "/api/user_data/" + req.user.id + "/challenge",
       method: "PATCH",
       data: challenge
     })
@@ -63,7 +63,7 @@ $(document).ready(function() {
   // and updates the HTML on the page
 
   $.get("/api/user_data").then(function(data) {
-    $(".member-name").text(data.email);
+    $(".member-name").text(data[0].email);
   });
 });
 
