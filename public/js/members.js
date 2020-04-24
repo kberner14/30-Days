@@ -63,6 +63,8 @@ $(document).ready(function() {
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
   var id;
+  // var challengeName = data[0].challenge[0].challengeName;
+  // var isComplete = data[0].challenge[1].isComplete;
   $.get("/api/user_data").then(function(data) {
     id = data[0].id;
     $(".member-name").text(data[0].email);
