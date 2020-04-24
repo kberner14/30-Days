@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     challenge: {
-      type: DataTypes.TEXT,
+      type: DataTypes.JSON,
       allowNull: true,
       defaultValue: null
     }
