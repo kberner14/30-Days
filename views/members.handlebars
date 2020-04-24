@@ -1,0 +1,11 @@
+<ul>
+  {{#each days}}
+    <li>
+      <p>day: {{id}}</p>
+      <p>challenge: {{challenge[0]}}</p>
+      <p>task: {{repetitions}}</p>
+      {{!-- still need to make the reps function--}}
+      <p>complete: {{challenge[1].iscComplete}}</p>
+    </li>
+  {{/each}}
+</ul>
