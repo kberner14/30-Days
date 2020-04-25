@@ -18,7 +18,6 @@ function handleChallengeSelection(event) {
   event.preventDefault();
   // alert("hi");
   const selectedChallenge = dropdownSelect.val();
-  
 
   const challenge = [];
   for (let i = 0; i < 30; i++) {
