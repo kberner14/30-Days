@@ -7,27 +7,38 @@
 <link rel="stylesheet" href="css/loginStyle.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
 <link rel="stylesheet" href="css/membersStyle.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <body>
+  <!-- Top container -->
+  <div class="w3-bar w3-top w3-cyan w3-large" style="z-index:4">
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+    <span class="w3-bar-item w3-right">Logo</span>
+  </div>
 
-
-  <div class="w3-container w3-theme w3-card w3-large" id="background">
-    <!-- Navbar -->
-    <div class="w3-bar w3-theme-l3">
-      <a href="#" class="w3-bar-item w3-button">Home</a>
-      <a href="/logout" class="w3-bar-item w3-button">Logout</a>
-    </div>
-    <!-- Top Welcome Bar -->
-    <div class="container">
-      <div class="w3-row">
-        <div class="w3-col w3-center">
-          <div class="w3-panel w3-card-2 w3-light-grey " id="form-card">
-            <h2>Welcome <span class="member-name"></span>, What can you accomplish in 30 days?</h2>
-          </div>
-        </div>
+  <!-- Side Menu -->
+  <nav class="w3-sidebar w3-collapse w3-light-grey w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+    <div class="w3-container w3-row">
+      <div class="w3-col s8 w3-bar">
+        <span>Welcome, <strong><span class="member-name"></span></strong></span><br>
       </div>
     </div>
-    <!-- Ask the user -->
+    <hr>
+    <div class="w3-container">
+      <h3>30 Day Dashboard</h3>
+    </div>
+    <div class="w3-bar-block">
+      <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home"></i>  Home</a>
+      <a href="/logout" class="w3-bar-item w3-button w3-padding"><i class="fa fa-sign-out"></i>  Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+    <header class="w3-container" style="padding-top:22px">
+      <h5><b><i class="fa fa-dashboard"></i> Workout Setup</b></h5>
+    </header>
     <div class="w3-container">
       <div class="w3-row">
         <div class="w3-col">
@@ -37,7 +48,56 @@
                 <label for="pwd">Type of Workout:</label>
                 <select id="workout" class="custom-select" aria-labelledby="dropdownMenuButton">
                   <option selected value="Pushups">Pushup</option>
-                  <!-- Setting the option for 5 as default -->
+                  <option value="Situps">Situp</option>
+                  <option value="JumpRope">Jump Rope</option>
+                </select>
+                <button type="submit" class="btn btn-default" id="challenge-btn">
+                  <i class="fa fa-heartbeat"></i> Let's Do It</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="w3-container w3-text-theme">
+        <ul class="w3-ul w3-border-top" id="table">
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  
+
+
+  <!--Old code-->
+
+  <!-- <div class="w3-container w3-theme w3-card w3-large" id="background"> -->
+    <!-- Navbar -->
+    <!-- <div class="w3-bar w3-theme-l3">
+      <a href="#" class="w3-bar-item w3-button">Home</a>
+      <a href="/logout" class="w3-bar-item w3-button">Logout</a>
+    </div> -->
+    <!-- Top Welcome Bar -->
+    <!-- <div class="container">
+      <div class="w3-row">
+        <div class="w3-col w3-center">
+          <div class="w3-panel w3-card-2 w3-light-grey " id="form-card">
+            <h2>Welcome <span class="member-name"></span>, What can you accomplish in 30 days?</h2>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Ask the user -->
+    <!-- <div class="w3-container">
+      <div class="w3-row">
+        <div class="w3-col">
+          <div class="w3-panel w3-card-4 w3-light-grey w3-center" id="form-card">
+            <form role="form " id="workout-form">
+              <div class="form-group">
+                <label for="pwd">Type of Workout:</label>
+                <select id="workout" class="custom-select" aria-labelledby="dropdownMenuButton">
+                  <option selected value="Pushups">Pushup</option>
                   <option value="Situps">Situp</option>
                   <option value="JumpRope">Jump Rope</option>
                 </select>
@@ -56,7 +116,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
