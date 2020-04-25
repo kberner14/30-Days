@@ -1,6 +1,7 @@
 const workoutForm = $("#workout-form");
 const dropdownSelect = $("#workout");
 const workoutTable = $("#table");
+
 $(function() {
   $(workoutForm).on("submit", handleChallengeSelection);
 
@@ -13,8 +14,11 @@ $(function() {
       $(
         `<div class="w3-panel w3-card-2"><p>No Data Available, Select a Workout to Begin!</p></div>`
       ).appendTo(workoutTable);
-      // alert("No Data, Choose a challenge");
     }
+    const completeBtn = $(".completeBtn");
+    completeBtn.click(function() {
+      alert(data[0].challenge[this.id].isComplete);
+    });
   });
 });
 
@@ -45,24 +49,7 @@ function handleChallengeSelection(event) {
   });
 }
 
-// const workoutForm = $("#workout-form");
-// // const dropdownSelect = $("#workout");
-// const workoutTable = $("#table");
-
-// $(document).ready(function() {
-//   $(workoutForm).on("submit", function handleFormSubmit(event) {
-//     event.preventDefault();
-//   });
-//   // This file just does a GET request to figure out which user is logged in
-//   // and updates the HTML on the page
-//   $.get("/api/user_data").then(function(data) {
-//     console.log(data);
-//     renderTable(data.challenge);
-//   });
-// });
-
 function renderTable(challengeCards) {
-  // console.log("Day: " + challengeCards[0].day);
   let colorIndex = 0;
   const colorArr = [
     "w3-theme-l5",
@@ -73,9 +60,7 @@ function renderTable(challengeCards) {
     "w3-theme",
     "w3-theme-d1"
   ];
-  // <li class="w3-theme-l5">
-  //           <p>Test text</p>
-  // </li>
+
   for (let i = 0; i < challengeCards.length; i++) {
     if (colorIndex > 6) {
       colorIndex = 0;
@@ -105,12 +90,7 @@ function renderTable(challengeCards) {
       .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
     $(
-      `<button type="submit" class="btn btn-default" id="${challengeCards[i].day}">Complete?</button>`
+      `<button type="submit" class="btn btn-default completeBtn" id="${i}">Complete?</button>`
     ).appendTo(divCol4);
-    // $("<button/>")
-    //   .addClass("w3-button w3-black")
-    //   .attr("complete", challengeCards[i].isComplete)
-    //   .attr("id", challengeCards[i].day)
-    //   .appendTo(divCol4);
   }
 }
