@@ -6,10 +6,14 @@ $(function() {
 
   $.get("/api/user_data").then(function(data) {
     console.log(data);
+    $(".member-name").text(data[0].email);
     if (data[0].challenge !== null) {
       renderTable(data[0].challenge);
     } else {
-      alert("No Data, Choose a challenge");
+      $(
+        `<div class="w3-panel w3-card-2"><p>No Data Available, Select a Workout to Begin!</p></div>`
+      ).appendTo(workoutTable);
+      // alert("No Data, Choose a challenge");
     }
   });
 });
@@ -58,37 +62,52 @@ function handleChallengeSelection(event) {
 // });
 
 function renderTable(challengeCards) {
-  console.log("Day: " + challengeCards[0].day);
+  // console.log("Day: " + challengeCards[0].day);
+  let colorIndex = 0;
+  const colorArr = [
+    "w3-theme-l5",
+    "w3-theme-l4",
+    "w3-theme-l3",
+    "w3-theme-l2",
+    "w3-theme-l1",
+    "w3-theme",
+    "w3-theme-d1"
+  ];
+  // <li class="w3-theme-l5">
+  //           <p>Test text</p>
+  // </li>
   for (let i = 0; i < challengeCards.length; i++) {
+    if (colorIndex > 6) {
+      colorIndex = 0;
+    }
     let li = $("<li/>")
-      .addClass("day-item w3-panel w3-card")
+      .addClass(`${colorArr[colorIndex++]}`)
       .attr("id", i)
       .appendTo(workoutTable);
     let divRow = $("<div/>")
       .addClass("w3-row")
       .appendTo(li);
     let divCol1 = $("<div/>")
-      .addClass("w3-col s3 w3-green w3-center")
+      .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
     $("<p>Day: " + challengeCards[i].day + "</p>").appendTo(divCol1);
     let divCol2 = $("<div/>")
-      .addClass("w3-col s3 w3-green w3-center")
+      .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
     $(
       "<p>Challenge Name: " + challengeCards[i].challengeName + "</p>"
     ).appendTo(divCol2);
     let divCol3 = $("<div/>")
-      .addClass("w3-col s3 w3-green w3-center")
+      .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
     $("<p>Reps: " + challengeCards[i].reps + "</p>").appendTo(divCol3);
-    // let divCol4 = $("<div/>")
-    //   .addClass("w3-col s3 w3-green w3-center")
-    //   .appendTo(divRow);
-    ////////////////////***********Make travis happy!! With this button!!!!!!!! */
-    // $(
-    //   '<button type="submit" class="btn btn-default" id="isComplete-btn"><i class="fa fa-search"></i> Complete?</button>'
-    // ).appendTo(divCol4);
-    // let isCompleteBtn = $("<button/>")
+    let divCol4 = $("<div/>")
+      .addClass("w3-col s3 w3-center")
+      .appendTo(divRow);
+    $(
+      `<button type="submit" class="btn btn-default" id="${challengeCards[i].day}">Complete?</button>`
+    ).appendTo(divCol4);
+    // $("<button/>")
     //   .addClass("w3-button w3-black")
     //   .attr("complete", challengeCards[i].isComplete)
     //   .attr("id", challengeCards[i].day)
