@@ -3,11 +3,20 @@ const dropdownSelect = $("#workout");
 const workoutTable = $("#table");
 $(function() {
   $(workoutForm).on("submit", handleChallengeSelection);
+
+  $.get("/api/user_data").then(function(data) {
+    console.log(data);
+    if (data[0].challenge !== null) {
+      renderTable(data[0].challenge);
+    } else {
+      alert("No Data, Choose a challenge");
+    }
+  });
 });
 
 function handleChallengeSelection(event) {
   event.preventDefault();
-  alert("hi");
+  // alert("hi");
   const selectedChallenge = dropdownSelect.val();
 
   const challenge = [];
@@ -27,7 +36,7 @@ function handleChallengeSelection(event) {
     method: "PATCH",
     data: { challenge }
   }).then(result => {
-    // location.reload();
+    location.reload();
     console.log(result);
   });
 }
