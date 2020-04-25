@@ -1,16 +1,52 @@
 const workoutForm = $("#workout-form");
-// const dropdownSelect = $("#workout");
+const dropdownSelect = $("#workout");
 const workoutTable = $("#table");
-$(document).ready(function() {
-  $(workoutForm).on("submit", function handleFormSubmit(event) {
-    event.preventDefault();
-  });
-  // This file just does a GET request to figure out which user is logged in
-  // and updates the HTML on the page
-  $.get("/api/user_data/1").then(function(data) {
-    renderTable(data.challenge);
-  });
+$(function() {
+  $(workoutForm).on("submit", handleChallengeSelection);
 });
+
+function handleChallengeSelection(event) {
+  event.preventDefault();
+  alert("hi");
+  const selectedChallenge = dropdownSelect.val();
+
+  const challenge = [];
+  for (let i = 0; i < 30; i++) {
+    const challengeDay = {
+      day: (i + 1).toString(),
+      challengeName: selectedChallenge,
+      reps: (i + 25).toString(),
+      isComplete: "0"
+    };
+    challenge.push(challengeDay);
+  }
+  console.log(challenge);
+  renderTable(challenge);
+  $.ajax({
+    url: "/api/user_data/challenge",
+    method: "PATCH",
+    data: { challenge }
+  }).then(result => {
+    // location.reload();
+    console.log(result);
+  });
+}
+
+// const workoutForm = $("#workout-form");
+// // const dropdownSelect = $("#workout");
+// const workoutTable = $("#table");
+
+// $(document).ready(function() {
+//   $(workoutForm).on("submit", function handleFormSubmit(event) {
+//     event.preventDefault();
+//   });
+//   // This file just does a GET request to figure out which user is logged in
+//   // and updates the HTML on the page
+//   $.get("/api/user_data").then(function(data) {
+//     console.log(data);
+//     renderTable(data.challenge);
+//   });
+// });
 
 function renderTable(challengeCards) {
   console.log("Day: " + challengeCards[0].day);
