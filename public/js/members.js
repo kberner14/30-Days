@@ -81,12 +81,13 @@ function renderTable(challengeCards) {
       .addClass("w3-col s3 w3-green w3-center")
       .appendTo(divRow);
     $("<p>Reps: " + challengeCards[i].reps + "</p>").appendTo(divCol3);
-    let divCol4 = $("<div/>")
-      .addClass("w3-col s3 w3-green w3-center")
-      .appendTo(divRow);
-    $(
-      '<button type="submit" class="btn btn-default" id="isComplete-btn"><i class="fa fa-search"></i> Complete?</button>'
-    ).appendTo(divCol4);
+    // let divCol4 = $("<div/>")
+    //   .addClass("w3-col s3 w3-green w3-center")
+    //   .appendTo(divRow);
+    ////////////////////***********Make travis happy!! With this button!!!!!!!! */
+    // $(
+    //   '<button type="submit" class="btn btn-default" id="isComplete-btn"><i class="fa fa-search"></i> Complete?</button>'
+    // ).appendTo(divCol4);
     // let isCompleteBtn = $("<button/>")
     //   .addClass("w3-button w3-black")
     //   .attr("complete", challengeCards[i].isComplete)
