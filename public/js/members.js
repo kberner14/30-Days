@@ -39,7 +39,7 @@ $(function() {
         method: "PATCH",
         data: { newData }
       }).then(result => {
-        // location.reload();
+        location.reload();
         console.log(result);
       });
     });
@@ -66,7 +66,7 @@ function handleChallengeSelection(event) {
     method: "PATCH",
     data: { challenge }
   }).then(result => {
-    // location.reload();
+    location.reload();
     console.log(result);
   });
 }
