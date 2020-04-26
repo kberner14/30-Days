@@ -37,7 +37,7 @@ $(function() {
       $.ajax({
         url: "/api/user_data/challenge",
         method: "PATCH",
-        data: { newData }
+        data: { challenge: newData }
       }).then(result => {
         location.reload();
         console.log(result);
