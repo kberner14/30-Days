@@ -1,15 +1,13 @@
 const workoutForm = $("#workout-form");
 const dropdownSelect = $("#workout");
 const workoutTable = $("#table");
-
 $(function() {
   $(workoutForm).on("submit", handleChallengeSelection);
-
-  $.get("/api/user_data").then(function(data) {
-    console.log(data);
-    $(".member-name").text(data[0].email);
-    if (data[0].challenge !== null) {
-      renderTable(data[0].challenge);
+  $.get("/api/user_data").then(function(response) {
+    console.log(response);
+    $(".member-name").text(response[0].email);
+    if (response[0].challenge !== null) {
+      renderTable(response[0].challenge);
     } else {
       $(
         `<div class="w3-panel w3-card-2"><p>No Data Available, Select a Workout to Begin!</p></div>`
@@ -17,16 +15,40 @@ $(function() {
     }
     const completeBtn = $(".completeBtn");
     completeBtn.click(function() {
-      alert(data[0].challenge[this.id].isComplete);
+      // const challengeTest = [];
+      // for (let i = 0; i < 30; i++) {
+      //   const challengeDay = {
+      //     day: (i + 1).toString(),
+      //     challengeName: "Pushup",
+      //     reps: (i + 25).toString(),
+      //     isComplete: "0"
+      //   };
+      //   challenge.push(challengeDay);
+      // }
+      // console.log(challengeTest);
+      // if (JSON.stringify(challengeTest) === JSON.stringify(response)) {
+      //   console.log("They are equal!");
+      // }
+      alert(response[0].challenge[this.id].isComplete);
+      response[0].challenge[this.id].isComplete = "1";
+      alert(response[0].challenge[this.id].isComplete);
+      console.log(response[0].challenge);
+      const newData = response[0].challenge;
+      $.ajax({
+        url: "/api/user_data/challenge",
+        method: "PATCH",
+        data: { newData }
+      }).then(result => {
+        // location.reload();
+        console.log(result);
+      });
     });
   });
 });
-
 function handleChallengeSelection(event) {
   event.preventDefault();
   // alert("hi");
   const selectedChallenge = dropdownSelect.val();
-
   const challenge = [];
   for (let i = 0; i < 30; i++) {
     const challengeDay = {
@@ -44,11 +66,10 @@ function handleChallengeSelection(event) {
     method: "PATCH",
     data: { challenge }
   }).then(result => {
-    location.reload();
+    // location.reload();
     console.log(result);
   });
 }
-
 function renderTable(challengeCards) {
   let colorIndex = 0;
   const colorArr = [
@@ -60,7 +81,6 @@ function renderTable(challengeCards) {
     "w3-theme",
     "w3-theme-d1"
   ];
-
   for (let i = 0; i < challengeCards.length; i++) {
     if (colorIndex > 6) {
       colorIndex = 0;
