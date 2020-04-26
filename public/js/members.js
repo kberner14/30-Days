@@ -14,37 +14,7 @@ $(function() {
     }
     const completeBtn = $(".completeBtn");
     completeBtn.click(function() {
-<<<<<<< HEAD
-      // const challengeTest = [];
-      // for (let i = 0; i < 30; i++) {
-      //   const challengeDay = {
-      //     day: (i + 1).toString(),
-      //     challengeName: "Pushup",
-      //     reps: (i + 25).toString(),
-      //     isComplete: "0"
-      //   };
-      //   challenge.push(challengeDay);
-      // }
-      // console.log(challengeTest);
-      // if (JSON.stringify(challengeTest) === JSON.stringify(response)) {
-      //   console.log("They are equal!");
-      // }
-      alert(response[0].challenge[this.id].isComplete);
-      response[0].challenge[this.id].isComplete = "1";
-      alert(response[0].challenge[this.id].isComplete);
-      console.log(response[0].challenge);
-      const newData = response[0].challenge;
-      $.ajax({
-        url: "/api/user_data/challenge",
-        method: "PATCH",
-        data: { challenge: newData }
-      }).then(result => {
-        location.reload();
-        console.log(result);
-      });
-=======
       makePatch(response, this.id);
->>>>>>> b762dd81b368ee0261580f9e9bc7c12a232dacb4
     });
   });
 });
