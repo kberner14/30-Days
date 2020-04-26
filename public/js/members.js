@@ -42,7 +42,7 @@ function handleChallengeSelection(event) {
     const challengeDay = {
       day: (i + 1).toString(),
       challengeName: selectedChallenge,
-      reps: (i + 25).toString(),
+      reps: setProperTask(selectedChallenge, i),
       isComplete: "0"
     };
     challenge.push(challengeDay);
@@ -57,6 +57,112 @@ function handleChallengeSelection(event) {
     location.reload();
     console.log(result);
   });
+}
+
+function setProperTask(selectedChallenge, i) {
+  const pushupArr = [
+    "15 reps",
+    "15 reps",
+    "15 reps",
+    "15 reps",
+    "15 reps",
+    "15 reps",
+    "None, REST DAY",
+    "20 reps",
+    "20 reps",
+    "20 reps",
+    "20 reps",
+    "20 reps",
+    "20 reps",
+    "None, REST DAY",
+    "25 reps",
+    "25 reps",
+    "25 reps",
+    "25 reps",
+    "30 reps",
+    "30 reps",
+    "None, REST DAY",
+    "30 reps",
+    "30 reps",
+    "30 reps",
+    "35 reps",
+    "35 reps",
+    "40 reps",
+    "None, REST DAY",
+    "40 reps",
+    "45 reps"
+  ];
+  const situpArr = [
+    "25 reps",
+    "25 reps",
+    "25 reps",
+    "25 reps",
+    "25 reps",
+    "25 reps",
+    "None, REST DAY",
+    "25 reps",
+    "25 reps",
+    "30 reps",
+    "30 reps",
+    "30 reps",
+    "30 reps",
+    "None, REST DAY",
+    "35 reps",
+    "35 reps",
+    "35 reps",
+    "35 reps",
+    "45 reps",
+    "45 reps",
+    "None, REST DAY",
+    "45 reps",
+    "45 reps",
+    "50 reps",
+    "50 reps",
+    "50 reps",
+    "55 reps",
+    "None, REST DAY",
+    "55 reps",
+    "60 reps"
+  ];
+  const jumpRopeArr = [
+    "1 min",
+    "1 min",
+    "1 min",
+    "1 min 20 sec",
+    "1 min 20 sec",
+    "1 min 40 sec",
+    "None, REST DAY",
+    "2 min",
+    "2 min",
+    "2 min",
+    "2 min 20 sec",
+    "2 min 20 sec",
+    "2 min 40 sec",
+    "None, REST DAY",
+    "3 min",
+    "3 min",
+    "3 min",
+    "3 min 20 sec",
+    "3 min 30 sec",
+    "3 min 40 sec",
+    "None, REST DAY",
+    "4 min",
+    "4 min",
+    "4 min",
+    "4 min 20 sec",
+    "4 min 20 sec",
+    "4 min 40 sec",
+    "None, REST DAY",
+    "5 min",
+    "5 min"
+  ];
+  if (selectedChallenge === "Pushups") {
+    return pushupArr[i];
+  } else if (selectedChallenge === "Situps") {
+    return situpArr[i];
+  } else if (selectedChallenge === "JumpRope") {
+    return jumpRopeArr[i];
+  }
 }
 
 function renderTable(challengeCards) {
@@ -84,17 +190,23 @@ function renderTable(challengeCards) {
     let divCol1 = $("<div/>")
       .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
-    $("<p>Day: " + challengeCards[i].day + "</p>").appendTo(divCol1);
+    $("<p>Day:<strong> " + challengeCards[i].day + "</strong></p>").appendTo(
+      divCol1
+    );
     let divCol2 = $("<div/>")
       .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
-    $("<p>ChallengeName: " + challengeCards[i].challengeName + "</p>").appendTo(
-      divCol2
-    );
+    $(
+      "<p>ChallengeName:<strong> " +
+        challengeCards[i].challengeName +
+        "</strong></p>"
+    ).appendTo(divCol2);
     let divCol3 = $("<div/>")
       .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
-    $("<p>Reps: " + challengeCards[i].reps + "</p>").appendTo(divCol3);
+    $("<p>Task:<strong> " + challengeCards[i].reps + "</strong></p>").appendTo(
+      divCol3
+    );
     let divCol4 = $("<div/>")
       .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
