@@ -88,7 +88,9 @@ function renderTable(challengeCards) {
     let divCol2 = $("<div/>")
       .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
-    $("<p>ChallengeName: " + challengeCards[i].challengeName + "</p>").appendTo(divCol2);
+    $("<p>ChallengeName: " + challengeCards[i].challengeName + "</p>").appendTo(
+      divCol2
+    );
     let divCol3 = $("<div/>")
       .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
