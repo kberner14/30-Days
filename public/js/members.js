@@ -1,6 +1,7 @@
 const workoutForm = $("#workout-form");
 const dropdownSelect = $("#workout");
 const workoutTable = $("#table");
+
 $(function() {
   $(workoutForm).on("submit", handleChallengeSelection);
   $.get("/api/user_data").then(function(response) {
@@ -9,45 +10,32 @@ $(function() {
     if (response[0].challenge !== null) {
       renderTable(response[0].challenge);
     } else {
-      $(
-        `<div class="w3-panel w3-card-2"><p>No Data Available, Select a Workout to Begin!</p></div>`
-      ).appendTo(workoutTable);
+      appendNoDataCard();
     }
     const completeBtn = $(".completeBtn");
     completeBtn.click(function() {
-      // const challengeTest = [];
-      // for (let i = 0; i < 30; i++) {
-      //   const challengeDay = {
-      //     day: (i + 1).toString(),
-      //     challengeName: "Pushup",
-      //     reps: (i + 25).toString(),
-      //     isComplete: "0"
-      //   };
-      //   challenge.push(challengeDay);
-      // }
-      // console.log(challengeTest);
-      // if (JSON.stringify(challengeTest) === JSON.stringify(response)) {
-      //   console.log("They are equal!");
-      // }
-      alert(response[0].challenge[this.id].isComplete);
-      response[0].challenge[this.id].isComplete = "1";
-      alert(response[0].challenge[this.id].isComplete);
-      console.log(response[0].challenge);
-      const newData = response[0].challenge;
-      $.ajax({
-        url: "/api/user_data/challenge",
-        method: "PATCH",
-        data: { challenge: newData }
-      }).then(result => {
-        // location.reload();
-        console.log(result);
-      });
+      makePatch(response, this.id);
     });
   });
 });
+
+function makePatch(response, id) {
+  console.log("Response in makePatch");
+  console.log(response);
+  response[0].challenge[id].isComplete = "1";
+  const newData = response[0].challenge;
+  $.ajax({
+    url: "/api/user_data/challenge",
+    method: "PATCH",
+    data: { challenge: newData }
+  }).then(result => {
+    location.reload();
+    console.log(result);
+  });
+}
+
 function handleChallengeSelection(event) {
   event.preventDefault();
-  // alert("hi");
   const selectedChallenge = dropdownSelect.val();
   const challenge = [];
   for (let i = 0; i < 30; i++) {
@@ -66,10 +54,11 @@ function handleChallengeSelection(event) {
     method: "PATCH",
     data: { challenge }
   }).then(result => {
-    // location.reload();
+    location.reload();
     console.log(result);
   });
 }
+
 function renderTable(challengeCards) {
   let colorIndex = 0;
   const colorArr = [
@@ -99,9 +88,9 @@ function renderTable(challengeCards) {
     let divCol2 = $("<div/>")
       .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
-    $(
-      "<p>Challenge Name: " + challengeCards[i].challengeName + "</p>"
-    ).appendTo(divCol2);
+    $("<p>ChallengeName: " + challengeCards[i].challengeName + "</p>").appendTo(
+      divCol2
+    );
     let divCol3 = $("<div/>")
       .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
@@ -109,8 +98,20 @@ function renderTable(challengeCards) {
     let divCol4 = $("<div/>")
       .addClass("w3-col s3 w3-center")
       .appendTo(divRow);
-    $(
-      `<button type="submit" class="btn btn-default completeBtn" id="${i}">Complete?</button>`
-    ).appendTo(divCol4);
+    if (challengeCards[i].isComplete === "1") {
+      $(
+        `<button type="submit" class="btn btn-default completeBtn" id="${i}" disabled>Finished</button>`
+      ).appendTo(divCol4);
+    } else {
+      $(
+        `<button type="submit" class="btn btn-default completeBtn" id="${i}">Complete?</button>`
+      ).appendTo(divCol4);
+    }
   }
+}
+
+function appendNoDataCard() {
+  $(
+    `<div class="w3-panel w3-card-2"><p>No Data Available, Select a Workout to Begin!</p></div>`
+  ).appendTo(workoutTable);
 }
