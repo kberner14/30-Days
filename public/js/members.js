@@ -36,7 +36,9 @@ function motivationalPoster() {
 
   $.ajax(settings).then(response => {
     console.log(response);
-    $(`<div class="w3-panel w3-card-2"><img src="${response[0].media}" id="motivationalPoster"></div>`).appendTo(dropdownColumn);
+    $(
+      `<div class="w3-panel w3-card-2"><img src="${response[0].media}" id="motivationalPoster"></div>`
+    ).appendTo(dropdownColumn);
   });
 }
 
@@ -247,8 +249,4 @@ function appendNoDataCard() {
   $(
     `<div class="w3-panel w3-card-2"><p>No Data Available, Select a Workout to Begin!</p></div>`
   ).appendTo(workoutTable);
-}
-
-function appendQuote(response) {
-  $(`<img src="${response.media}"`).appendTo(dropdownColumn);
 }
