@@ -1,9 +1,11 @@
 const workoutForm = $("#workout-form");
 const dropdownSelect = $("#workout");
+const dropdownColumn = $("#mySidebar");
 const workoutTable = $("#table");
 
 $(function() {
   $(workoutForm).on("submit", handleChallengeSelection);
+  motivationalPoster();
   $.get("/api/user_data").then(function(response) {
     console.log(response);
     $(".member-name").text(response[0].email);
@@ -18,6 +20,25 @@ $(function() {
     });
   });
 });
+
+function motivationalPoster() {
+  var settings = {
+    async: true,
+    crossDomain: true,
+    url:
+      "https://healthruwords.p.rapidapi.com/v1/quotes/?t=Motivational&maxR=1&size=medium",
+    method: "GET",
+    headers: {
+      "x-rapidapi-host": "healthruwords.p.rapidapi.com",
+      "x-rapidapi-key": "aba3c7bdc1msh5b9a40821dbd03fp181584jsn6ee503254af2"
+    }
+  };
+
+  $.ajax(settings).then(response => {
+    console.log(response);
+    $(`<div class="w3-panel w3-card-2"><img src="${response[0].media}" id="motivationalPoster"></div>`).appendTo(dropdownColumn);
+  });
+}
 
 function makePatch(response, id) {
   console.log("Response in makePatch");
@@ -226,4 +247,8 @@ function appendNoDataCard() {
   $(
     `<div class="w3-panel w3-card-2"><p>No Data Available, Select a Workout to Begin!</p></div>`
   ).appendTo(workoutTable);
+}
+
+function appendQuote(response) {
+  $(`<img src="${response.media}"`).appendTo(dropdownColumn);
 }
